@@ -138,6 +138,45 @@
     });
   }
 
+  /**
+   * Init isotope layout and filters
+   */
+  // Doctors isotope and filter
+    window.addEventListener('load', () => {
+      let doctorContainer = document.querySelector('.doctor .isotope-container');
+      if (doctorContainer) {
+        let doctorIsotope = new Isotope(doctorContainer, {
+          itemSelector: '.doctor-item',
+          layoutMode: 'fitRows'
+        });
+
+        let doctorFilters = document.querySelectorAll('.doctor-filters li');
+        
+        // Add click handler to each filter item
+        doctorFilters.forEach(filter => {
+          filter.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active class from all filters
+            doctorFilters.forEach(f => {
+              f.classList.remove('filter-active');
+            });
+            
+            // Add active class to clicked filter
+            filter.classList.add('filter-active');
+
+            // Get filter value from data-filter attribute
+            let filterValue = filter.getAttribute('data-filter');
+            
+            // Apply filter to isotope
+            doctorIsotope.arrange({
+              filter: filterValue
+            });
+          });
+        });
+      }
+    });
+
   window.addEventListener("load", initSwiper);
 
   /**
